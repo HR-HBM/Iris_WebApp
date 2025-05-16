@@ -1,26 +1,142 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Retina Prediction</title>
+    <title>Iris</title>
     <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Upload Retinal Image</h1>
-    <form action="/predict" method="POST" enctype="multipart/form-data">
-        <input type="file" name="image" accept="image/*" required>
-        <button type="submit">Predict</button>
-    </form>
+    <div class="main-container">
+        <div class="title-container">
+        <img class="iris-image" src="./logo.png" alt="iris-image">
+        <h1 class="app-title">Iris</h1>
+    </div>
 
-    <% if (prediction) { %>
+    <div class="sub-container">
+        <div class="image-block">
+            <canvas id="myCanvas" width="400" height="400" style="border:1px solid #d3d3d3;">
+                Your browser does not support the HTML canvas tag.
+            </canvas>
+            
+
+
+            <form action="/predict" method="POST" enctype="multipart/form-data" id="predictForm">
+                <label for="imageInput" class="custom-file-upload">Select Image</label>
+                <input type="file" id="imageInput" name="image" accept="image/*" required>
+                <button type="submit" class="diagnose-button">Diagnose Image</button>
+            </form>
+
+            <!-- Display filename (from client or server) -->
+            <p id="fileNameDisplay" style="font-weight: bold; margin-top: 10px;">
+                <% if (typeof originalName !== 'undefined') { %>
+                    File Name: <%= originalName %>
+                <% } %>
+            </p>
+ 
+    </div>
+
+    <div class="prediction-block">
+                <h2>Results</h2>
+                <p><strong>Diabetic Retinopathy:</strong></p>
+                <ul>
+                    <li>
+                        Diagnosis: 
+                    </li>
+                </ul> 
+
+                <p><strong>Diabetic Macular Edema:</strong></p>
+                <ul>
+                    <li>
+                        Diagnosis: 
+                    </li>
+                </ul>
+
+                <div class="loader" id="loader" style="display: none;"></div>
+
+
+
+                <p class="disclaimer-text">
+                    >>The disclaimer text comes here:
+                </p>
+
+
+
+        
+        <% if (prediction) { %>
         <h2>Results</h2>
         <% if (prediction.error) { %>
             <p>Error: <%= prediction.error %></p>
         <% } else { %>
-            <p><strong>Retinopathy:</strong> <%= prediction.retinopathy %></p>
-            <p><strong>Probabilities:</strong> <%= prediction.retinopathy_probs.map(p => p.toFixed(4)).join(", ") %></p>
-            <p><strong>Macular Edema:</strong> <%= prediction.edema %></p>
-            <p><strong>Probabilities:</strong> <%= prediction.edema_probs.map(p => p.toFixed(4)).join(", ") %></p>
-        <% } %>
+            <p><strong>Diabetic Retinopathy:</strong> <%= prediction.retinopathy %></p>
+            <!-- <p><strong>Probabilities:</strong> <%= prediction.retinopathy_probs.map(p => p.toFixed(4)).join(", ") %></p> -->
+            <p><strong>Diabetic Macular Edema:</strong> <%= prediction.edema %></p>
+            <!-- <p><strong>Probabilities:</strong> <%= prediction.edema_probs.map(p => p.toFixed(4)).join(", ") %></p> -->
+             <% } %>
+             <% } %>
+
+    </div>
+
+    </div>
+
+            </div>
+
+            <footer>
+                Iris 2025
+            </footer>
+    
+    
+    <script>
+
+        const imageInput = document.getElementById('imageInput');
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        const fileNameDisplay = document.getElementById("fileNameDisplay");
+        ctx.font = "italic 20px 'Open Sans'";
+        ctx.fillStyle = "#0077cc";
+        ctx.fillText("Upload a Retinal Fundus Image",50, 200);
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        imageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                fileNameDisplay.textContent = '';
+                return;
+            }
+
+            fileNameDisplay.textContent = `File Name: ${file.name}`;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+
+        <% if (typeof base64Image !== 'undefined' && base64Image) { %>
+        const img = new Image();
+        img.onload = function() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+        img.src = "<%= base64Image %>";
     <% } %>
+
+
+        const form = document.getElementById('predictForm');
+        const loader = document.getElementById('loader');
+        form.addEventListener('submit', function () {
+            loader.style.display = 'block';
+            });
+
+    </script>
+
+    
 </body>
 </html>

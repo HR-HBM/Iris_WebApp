@@ -30,14 +30,19 @@ app.post("/predict", upload.single("image"), async (req, res) => {
         });
 
         // Call FastAPI endpoint
-        const response = await axios.post("http://127.0.0.1:8000/predict", formData, {
+        const response = await axios.post("https://retina-api-production.up.railway.app/predict", formData, {
             headers: formData.getHeaders(),
         });
 
-        res.render("index", { prediction: response.data });
+        
+        const base64Image = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
+        const originalName = req.file.originalname;
+
+
+        res.render("index", { prediction: response.data, base64Image, originalName });
     } catch (error) {
         console.error(error);
-        res.render("index", { prediction: { error: "Prediction failed" } });
+        res.render("index", { prediction: { error: "Prediction failed", base64Image: null } });
     }
 });
 

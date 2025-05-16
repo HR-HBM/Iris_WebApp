@@ -1,19 +1,97 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
 }
-input, button {
-    margin: 10px 0;
-    padding: 8px;
-}
+
 button {
     background-color: #007bff;
     color: white;
     border: none;
     cursor: pointer;
+    height: 45px;
 }
 button:hover {
     background-color: #0056b3;
+}
+
+.app-title {
+    font-weight: lighter;
+    font-size: 60px;
+    width: fit-content;
+    margin: 0 0 0 50px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload, .diagnose-button {
+    display: inline-block;
+    padding: 8px 8px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    margin: 10px 10px;
+    font-size: 20px;
+    text-align: center;
+    width: 300px;
+}
+
+.diagnose-button {
+    width: 315px;
+}
+
+.iris-image {
+    height: 50px;
+    width: 50px;
+}
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-block {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 50vw;
+}
+
+.prediction-block {
+    width: 40vw;
+}
+
+.sub-container {
+    display: flex;
+}
+
+.main-container {
+    display: block;
+}
+
+.loader {
+  border: 8px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 8px solid #3498db;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
