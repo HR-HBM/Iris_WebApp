@@ -1,19 +1,22 @@
 body {
     font-family: 'Open Sans', sans-serif;
-    max-width: 800px;
+    width: 100vw;
     margin: 0 auto;
-    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
 }
 
 button {
-    background-color: #007bff;
+    background-color: #1c395b;
     color: white;
     border: none;
     cursor: pointer;
     height: 45px;
 }
 button:hover {
-    background-color: #0056b3;
+    background-color: #1c395b;
 }
 
 .app-title {
@@ -30,7 +33,7 @@ input[type="file"] {
 .custom-file-upload, .diagnose-button {
     display: inline-block;
     padding: 8px 8px;
-    background-color: #007bff;
+    background-color: #1c395b;
     color: white;
     cursor: pointer;
     border-radius: 5px;
@@ -73,17 +76,21 @@ input[type="file"] {
 
 .main-container {
     display: block;
+    height: 70vw;
+}
+.results {
+    color: #1c395b;
 }
 
 .loader {
-  border: 8px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 8px solid #3498db;
-  width: 60px;
-  height: 60px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 2s linear infinite;
-}
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #1c395b;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    }
 
 /* Safari */
 @-webkit-keyframes spin {
@@ -94,4 +101,13 @@ input[type="file"] {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+footer {
+    margin-top: auto;
+    background-color: #1c395b;
+    text-align: center;
+    color: white;
+    font-weight: 600;
+   
 }

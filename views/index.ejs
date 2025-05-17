@@ -36,53 +36,104 @@
     </div>
 
     <div class="prediction-block">
-                <h2>Results</h2>
-                <p><strong>Diabetic Retinopathy:</strong></p>
-                <ul>
-                    <li>
-                        Diagnosis: 
-                    </li>
-                </ul> 
+                <h2 class="results">Results</h2>
 
-                <p><strong>Diabetic Macular Edema:</strong></p>
+                <% 
+                ICDRLevel0 = ['No diabetic retinopathy: No visible abnormalities in the retina.']
+                ICDRLevel1 = ['Mild NPDR: Few microaneurysms visible in the retina.']
+                ICDRLevel2 = ['Moderate NPDR: Increased microaneurysms, hemorrhages, and exudates; possible venous beading..']
+                ICDRLevel3 = ['Severe NPDR: Extensive hemorrhages, microaneurysms, and venous beading in multiple quadrants.']
+                ICDRLevel4 = ['PDR: Neovascularization and/or vitreous hemorrhage; severe retinal damage.']
+                dmeNegative = ['No hard exudates or swelling in the macula region.']
+                dmePositive = ['Hard exudates and/or macular edema present near the macula.']
+                
+                %>
+                
+                
+                
+                <% if (prediction) { %>
+        <% if (prediction.error) { %>
+            <p>Error: <%= prediction.error %></p>
+        <% } else { %>
+
+            <p><strong>Diabetic Retinopathy:</strong> <%= prediction.retinopathy %></p>
                 <ul>
+                    <% if (prediction.retinopathy == "ICDR level 0") { %>
+                        <li class="diagnosis-detail"> Diagnosis: <% ICDRLevel0[0] %></li>
+                    <% } else if (prediction.retinopathy == "ICDR level 1") { %>
+                        <li class="diagnosis-detail">Diagnosis: <% ICDRLevel1[0] %></li>
+                    <% } else if (prediction.retinopathy == "ICDR level 2") { %>
+                        <li class="diagnosis-detail">Diagnosis: <% ICDRLevel2[0] %></li>
+                    <% } else if (prediction.retinopathy == "ICDR level 3") { %>
+                        <li class="diagnosis-detail">Diagnosis: <% ICDRLevel3[0] %></li>
+                    <% } else if (prediction.retinopathy == "ICDR level 4") { %>
+                        <li class="diagnosis-detail">Diagnosis: <% ICDRLevel4[0] %></li>
+                    <% } %>
+                </ul>    
+                        <!-- <p><strong>Probabilities:</strong> <%= prediction.retinopathy_probs.map(p => p.toFixed(4)).join(", ") %></p> -->
+            <!-- <p><strong>Probabilities:</strong> <%= prediction.edema_probs.map(p => p.toFixed(4)).join(", ") %></p> -->
+             <% } %>
+             <% } %>
+                <!-- <ul>
                     <li>
                         Diagnosis: 
                     </li>
-                </ul>
+                </ul>  -->
+
+                <% if (prediction) { %>
+        <% if (prediction.error) { %>
+            <p>Error: <%= prediction.error %></p>
+        <% } else { %>
+                        <!-- <p><strong>Probabilities:</strong> <%= prediction.retinopathy_probs.map(p => p.toFixed(4)).join(", ") %></p> -->
+            <p><strong>Diabetic Macular Edema:</strong> <%= prediction.edema %></p>
+            <ul>
+                    <% if (prediction.edema == "DME Negative") { %>
+                        <li class="diagnosis-detail">Diagnosis: <% dmeNegative[0 * dmeNegative.length] %></li>
+                    <% } else if (prediction.edema == "DME Positive") { %>
+                        <li class="diagnosis-detail">Diagnosis: <% dmePositive[0] %></li>
+                    <% } %>
+                    
+                </ul> 
+            <!-- <p><strong>Probabilities:</strong> <%= prediction.edema_probs.map(p => p.toFixed(4)).join(", ") %></p> -->
+             <% } %>
+             <% } %>
+                <!-- <ul>
+                    <li>
+                        Diagnosis: 
+                    </li>
+                </ul> -->
 
                 <div class="loader" id="loader" style="display: none;"></div>
 
 
-
-                <p class="disclaimer-text">
-                    >>The disclaimer text comes here:
-                </p>
-
-
-
-        
-        <% if (prediction) { %>
-        <h2>Results</h2>
-        <% if (prediction.error) { %>
-            <p>Error: <%= prediction.error %></p>
-        <% } else { %>
-            <p><strong>Diabetic Retinopathy:</strong> <%= prediction.retinopathy %></p>
-            <!-- <p><strong>Probabilities:</strong> <%= prediction.retinopathy_probs.map(p => p.toFixed(4)).join(", ") %></p> -->
-            <p><strong>Diabetic Macular Edema:</strong> <%= prediction.edema %></p>
-            <!-- <p><strong>Probabilities:</strong> <%= prediction.edema_probs.map(p => p.toFixed(4)).join(", ") %></p> -->
-             <% } %>
-             <% } %>
+                
+                
 
     </div>
+
+     <div class="disclaimer-text">
+                    
+                    <p class="disclaimer-text">
+                    >>This app provides preliminary insights into possible eye conditions, but results may vary in accuracy. <br> <br> >> Please consult a qualified ophthalmologist for an accurate diagnosis and timely medical intervention.
+                    </p>
+
+                </div>
 
     </div>
 
             </div>
 
             <footer>
-                Iris 2025
+                <div>
+                    Iris &copy;
+                    <span id="copyright">
+                        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+                    </span>
+                </div>
             </footer>
+
+           
+
     
     
     <script>
