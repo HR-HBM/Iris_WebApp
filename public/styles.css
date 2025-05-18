@@ -8,20 +8,42 @@ body {
     background-color: white;
 }
 
+canvas {
+    width: 400px;
+    height: 400px;
+    text-align: center;
+    border:2px solid #206493;
+    border-radius: 15px;
+
+}
+
+#fileNameDisplay {
+    color: #6f95ac;
+    font-weight: bold; 
+    margin-top: 10px;
+}
+/* 
 button {
     background-color: #1c395b;
     color: white;
     border: none;
     cursor: pointer;
     height: 45px;
-}
-button:hover {
+} */
+.diagnose-button:hover {
     background-color: #1c395b;
+    color: white;
+}
+
+.custom-file-upload:hover {
+    background-color: white;
+    color: #1c395b;
+
 }
 
 .app-title {
     font-weight: lighter;
-    font-size: 60px;
+    font-size: 40px;
     width: fit-content;
     margin: 0 0 0 50px;
 }
@@ -33,29 +55,42 @@ input[type="file"] {
 .custom-file-upload, .diagnose-button {
     display: inline-block;
     padding: 8px 8px;
-    background-color: #1c395b;
-    color: white;
+    /* background-color: white;
+    color: #206493; */
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 10px;
     font-weight: bold;
-    margin: 10px 10px;
-    font-size: 20px;
+    margin: 10px 30px;
+    font-size: 15px;
     text-align: center;
-    width: 300px;
+    width: 150px;
+    border: solid 2px #206493;
 }
 
 .diagnose-button {
-    width: 315px;
+    width: 165px;
+    background-color: white;
+    color: #206493;
+
+}
+
+.custom-file-upload {
+    background-color: #206493;
+    color: white;
+
 }
 
 .iris-image {
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
 }
 .title-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #adcedb;
+    color: white;
+    margin-bottom: 40px;
 }
 
 .image-block {
@@ -63,20 +98,24 @@ input[type="file"] {
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: 50vw;
+    width: 45vw;
+    border-right: solid 2px #adcedb;
 }
 
 .prediction-block {
     width: 40vw;
+    margin-left: 80px;
+    
 }
 
 .sub-container {
     display: flex;
+    margin-bottom: 30px;
+    
 }
 
 .main-container {
-    display: block;
-    height: 70vw;
+
 }
 .results {
     color: #1c395b;
@@ -105,9 +144,55 @@ input[type="file"] {
 
 footer {
     margin-top: auto;
-    background-color: #1c395b;
+    background-color: #206493;
     text-align: center;
     color: white;
     font-weight: 600;
    
+}
+
+.results {
+    font-size: 40px;
+    font-weight: 600;
+    margin:  0 0 30px 0;
+    
+}
+
+.prediction {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+ul {
+    padding: 0;
+}
+
+.diagnosis-detail {
+    list-style: none;
+    color: #646b7d;
+    margin-bottom: 10px;
+    font-size: 17px;
+    font-style: italic;
+}
+
+.diagnosis {
+    margin-bottom: 40px;
+}
+
+.disclaimer {
+    color: #0068cb;
+    font-style: italic;
+    margin-top: 60px;
+}
+.disclaimer-option {
+    margin-bottom: 10px;
+}
+
+.dr-notes {
+    color: #0068cb;
+    border: solid 2px #0068cb;
+    border-radius: 8px;
+    padding: 5px 15px;
+    width: fit-content;
+    margin-bottom: 40px;
 }
