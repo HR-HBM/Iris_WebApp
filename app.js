@@ -19,8 +19,6 @@ app.get("/", (req, res) => {
     res.render("index", { prediction: null });
 });
 
-const diagnosis = {'General Knowledge': 9, 'Entertainment:Books': 10, 'Entertainment: Music': 12, 'Video Games': 15, 'Science & Nature': 17, 'Science: Computers': 18, 'History': 23, 'Politics': 24, 'Animals': 27, 'Vehicles': 28, 'Gadgets': 30, 'Japanese Anime & Manga': 31, 'Cartoon & Animations': 32, 'Board Games': 16, 'Sports': 21, ' Entertainment: Films': 11, 'Entertainment: Musicals & Theatres': 13, 'Television': 14};
-
 
 // Prediction route
 app.post("/predict", upload.single("image"), async (req, res) => {
