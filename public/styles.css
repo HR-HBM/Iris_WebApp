@@ -22,14 +22,7 @@ canvas {
     font-weight: bold; 
     margin-top: 10px;
 }
-/* 
-button {
-    background-color: #1c395b;
-    color: white;
-    border: none;
-    cursor: pointer;
-    height: 45px;
-} */
+
 .diagnose-button:hover {
     background-color: #1c395b;
     color: white;
@@ -55,8 +48,6 @@ input[type="file"] {
 .custom-file-upload, .diagnose-button {
     display: inline-block;
     padding: 8px 8px;
-    /* background-color: white;
-    color: #206493; */
     cursor: pointer;
     border-radius: 10px;
     font-weight: bold;
@@ -114,9 +105,6 @@ input[type="file"] {
     
 }
 
-.main-container {
-
-}
 .results {
     color: #1c395b;
 }

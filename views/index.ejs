@@ -9,90 +9,84 @@
 <body>
     <div class="main-container">
         <div class="title-container">
-        <img class="iris-image" src="./logo.png" alt="iris-image">
-        <h1 class="app-title">Iris</h1>
-    </div>
+            <img class="iris-image" src="./logo.png" alt="iris-image">
+            <h1 class="app-title">Iris</h1>
+        </div>
 
-    <div class="sub-container">
-        <div class="image-block">
-            <canvas id="myCanvas" width="600" height="600">
-                Your browser does not support the HTML canvas tag.
-            </canvas>
+        <!-- Canvas to preview uploaded image -->
+        <div class="sub-container">
+            <div class="image-block">
+                <canvas id="myCanvas" width="600" height="600">
+                    Your browser does not support the HTML canvas tag.
+                </canvas>
 
-            <!-- Display filename (from client or server) -->
-            <p id="fileNameDisplay">
-                <% if (typeof originalName !== 'undefined') { %>
-                    File Name: <%= originalName %>
-                <% } %>
-            </p>
-            
+                <p id="fileNameDisplay">
+                    <% if (typeof originalName !== 'undefined') { %>
+                        File Name: <%= originalName %>
+                    <% } %>
+                </p>
 
+                <!-- Form to select and submit image for diagnosis -->
+                <form action="/predict" method="POST" enctype="multipart/form-data" id="predictForm">
+                    <label for="imageInput" class="custom-file-upload">Select Image</label>
+                    <input type="file" id="imageInput" name="image" accept="image/*" required>
+                    <button type="submit" class="diagnose-button">Diagnose</button>
+                </form>
+            </div>
 
-            <form action="/predict" method="POST" enctype="multipart/form-data" id="predictForm">
-                <label for="imageInput" class="custom-file-upload">Select Image</label>
-                <input type="file" id="imageInput" name="image" accept="image/*" required>
-                <button type="submit" class="diagnose-button">Diagnose </button>
-            </form>
-
-            
- 
-    </div>
-
-    <div class="prediction-block">
+            <div class="prediction-block">
                 <h2 class="results">Results</h2>
 
                 <% 
-                ICDRLevel0 = ['No diabetic retinopathy - No visible abnormalities in the retina.']
-                ICDRLevel1 = ['Mild NPDR - Few microaneurysms visible in the retina.']
-                ICDRLevel2 = ['Moderate NPDR - Increased microaneurysms, hemorrhages, and exudates; possible venous beading.']
-                ICDRLevel3 = ['Severe NPDR - Extensive hemorrhages, microaneurysms, and venous beading in multiple quadrants.']
-                ICDRLevel4 = ['PDR: Neovascularization and/or vitreous hemorrhage; severe retinal damage.']
-                dmeNegative = ['No hard exudates or swelling in the macula region.']
-                dmePositive = ['Hard exudates and/or macular edema present near the macula.']
-                
+                    ICDRLevel0 = ['No diabetic retinopathy - No visible abnormalities in the retina.'];
+                    ICDRLevel1 = ['Mild NPDR - Few microaneurysms visible in the retina.'];
+                    ICDRLevel2 = ['Moderate NPDR - Increased microaneurysms, hemorrhages, and exudates; possible venous beading.'];
+                    ICDRLevel3 = ['Severe NPDR - Extensive hemorrhages, microaneurysms, and venous beading in multiple quadrants.'];
+                    ICDRLevel4 = ['PDR: Neovascularization and/or vitreous hemorrhage; severe retinal damage.'];
+                    dmeNegative = ['No hard exudates or swelling in the macula region.'];
+                    dmePositive = ['Hard exudates and/or macular edema present near the macula.'];
                 %>
-                
-                
-                
+
                 <% if (prediction) { %>
                     <% if (prediction.error) { %>
                         <p>Error: <%= prediction.error %></p>
-                        <% } else { %>
-                            
-                            <!-- Retinopathy Result -->
-                            <div class="diagnosis">
-                               <p class="prediction"><strong>Diabetic Retinopathy: <%= prediction.retinopathy %> </strong></p>
-                               <ul>
+                    <% } else { %>
+                        <!-- Diabetic Retinopathy Result -->
+                        <div class="diagnosis">
+                            <p class="prediction"><strong>Diabetic Retinopathy: <%= prediction.retinopathy %></strong></p>
+                            <ul>
                                 <% if (prediction.retinopathy == "ICDR level 0") { %>
                                     <li class="diagnosis-detail">Diagnosis: <%= ICDRLevel0[0] %></li>
-                                    <% } else if (prediction.retinopathy == "ICDR level 1") { %>
-                                        <li class="diagnosis-detail">Diagnosis: <%= ICDRLevel1[0] %></li>
-                                    <% } else if (prediction.retinopathy == "ICDR level 2") { %>
-                                        <li class="diagnosis-detail">Diagnosis: <%= ICDRLevel2[0] %></li>
-                                    <% } else if (prediction.retinopathy == "ICDR level 3") { %>
-                                        <li class="diagnosis-detail">Diagnosis: <%= ICDRLevel3[0] %></li>
-                                    <% } else if (prediction.retinopathy == "ICDR level 4") { %>
-                                        <li class="diagnosis-detail">Diagnosis: <%= ICDRLevel4[0] %></li>
-                                    <% } %>
-                            </ul>   
+                                <% } else if (prediction.retinopathy == "ICDR level 1") { %>
+                                    <li class="diagnosis-detail">Diagnosis: <%= ICDRLevel1[0] %></li>
+                                <% } else if (prediction.retinopathy == "ICDR level 2") { %>
+                                    <li class="diagnosis-detail">Diagnosis: <%= ICDRLevel2[0] %></li>
+                                <% } else if (prediction.retinopathy == "ICDR level 3") { %>
+                                    <li class="diagnosis-detail">Diagnosis: <%= ICDRLevel3[0] %></li>
+                                <% } else if (prediction.retinopathy == "ICDR level 4") { %>
+                                    <li class="diagnosis-detail">Diagnosis: <%= ICDRLevel4[0] %></li>
+                                <% } %>
+                            </ul>
                         </div>
 
-                        <% if (prediction.retinopathy == "ICDR level 1" || prediction.retinopathy == "ICDR level 2" || prediction.retinopathy == "ICDR level 3") { %>
-                                    <div class="notes">
-                                        <p class="dr-notes">•NPDR: Non-Proliferative Diabetic Retinopathy</p>
-                                    </div>
-                                    <% } else if (prediction.retinopathy == "ICDR level 4") { %>
-                                        <div class="notes">
-                                            <p class="dr-notes">•PDR: Proliferative Diabetic Retinopathy</p>
-                                        </div>
-                                        
+                        <% if (
+                            prediction.retinopathy == "ICDR level 1" || 
+                            prediction.retinopathy == "ICDR level 2" || 
+                            prediction.retinopathy == "ICDR level 3"
+                        ) { %>
+                            <div class="notes">
+                                <p class="dr-notes">• NPDR: Non-Proliferative Diabetic Retinopathy</p>
+                            </div>
+                        <% } else if (prediction.retinopathy == "ICDR level 4") { %>
+                            <div class="notes">
+                                <p class="dr-notes">• PDR: Proliferative Diabetic Retinopathy</p>
+                            </div>
+                        <% } %>
 
-                                   <% } %>
-
-                        <!-- Edema Result -->
+                        <!-- Diabetic Macular Edema Result -->
                         <div class="diagnosis">
-                            <p class="prediction"><strong> Diabetic Macular Edema: <%= prediction.edema %> </strong></p>
-                             <ul>
+                            <p class="prediction"><strong>Diabetic Macular Edema: <%= prediction.edema %></strong></p>
+                            <ul>
                                 <% if (prediction.edema == "Negative") { %>
                                     <li class="diagnosis-detail">Diagnosis: <%= dmeNegative[0] %></li>
                                 <% } else if (prediction.edema == "Positive") { %>
@@ -101,69 +95,37 @@
                             </ul>
                         </div>
 
-                            
-                            
-                            
-                            
-                             
-
-                                
-
-                                
-                            <% } %>
-                            
-
-                                    <div class="disclaimer">
-                                        <ul class="disclaimer-options">
-                                            <li class="disclaimer-option">
-                                                This app provides preliminary insights into possible eye conditions, but results may vary in accuracy.
-                                            </li>
-                                            <li class="disclaimer-option">
-                                                Please consult a qualified ophthalmologist for an accurate diagnosis and timely medical intervention.
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                            <% } %>
-
-
-
-
-                            
-
-
-
-     
+                        <div class="disclaimer">
+                            <ul class="disclaimer-options">
+                                <li class="disclaimer-option">
+                                    This app provides preliminary insights into possible eye conditions, but results may vary in accuracy.
+                                </li>
+                                <li class="disclaimer-option">
+                                    Please consult a qualified ophthalmologist for an accurate diagnosis and timely medical intervention.
+                                </li>
+                            </ul>
+                        </div>
+                    <% } %>
+                <% } %>
 
                 <div class="loader" id="loader" style="display: none;"></div>
-
-
-                
-                
-
-    </div>
-
-     
-
-    </div>
-
             </div>
+        </div>
+    </div>
 
-            <footer>
-                <div>
-                    Iris &copy;
-                    <span id="copyright">
-                        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
-                    </span>
-                </div>
-            </footer>
+    <footer>
+        <div>
+            Iris &copy;
+            <span id="copyright">
+                <script>
+                    document.getElementById('copyright')
+                        .appendChild(document.createTextNode(new Date().getFullYear()));
+                </script>
+            </span>
+        </div>
+    </footer>
 
-           
-
-    
-    
     <script>
-
         const imageInput = document.getElementById('imageInput');
         const canvas = document.getElementById('myCanvas');
         const ctx = canvas.getContext('2d');
@@ -171,7 +133,6 @@
         ctx.font = "italic 20px 'Open Sans'";
         ctx.fillStyle = "#206493";
         ctx.fillText("Upload a Retinal Fundus Image", 150, 300);
- 
 
         imageInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
@@ -195,30 +156,25 @@
         });
 
         imageInput.addEventListener('click', () => {
-    document.querySelectorAll('.diagnosis, .notes, .disclaimer').forEach(el => {
-        el.style.display = 'none';
+            document.querySelectorAll('.diagnosis, .notes, .disclaimer').forEach(el => {
+                el.style.display = 'none';
+            });
         });
-    });
-
 
         <% if (typeof base64Image !== 'undefined' && base64Image) { %>
-        const img = new Image();
-        img.onload = function() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        };
-        img.src = "<%= base64Image %>";
-    <% } %>
-
+            const img = new Image();
+            img.onload = function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            };
+            img.src = "<%= base64Image %>";
+        <% } %>
 
         const form = document.getElementById('predictForm');
         const loader = document.getElementById('loader');
         form.addEventListener('submit', function () {
             loader.style.display = 'block';
-            });
-
+        });
     </script>
-
-    
 </body>
 </html>

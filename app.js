@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const axios = require("axios");
 const path = require("path");
-const FormData = require("form-data"); // Explicitly use form-data package
+const FormData = require("form-data"); 
 
 const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -19,12 +19,10 @@ app.get("/", (req, res) => {
     res.render("index", { prediction: null });
 });
 
-
 // Prediction route
 app.post("/predict", upload.single("image"), async (req, res) => {
     try {
         const formData = new FormData();
-        // Use Buffer directly instead of Blob
         formData.append("file", req.file.buffer, {
             filename: req.file.originalname,
             contentType: req.file.mimetype,
