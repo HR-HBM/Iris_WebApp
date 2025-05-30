@@ -114,6 +114,7 @@ input[type="file"] {
     border-radius: 50%;
     border-top: 8px solid #1c395b;
     width: 60px;
+    margin: auto;
     height: 60px;
     -webkit-animation: spin 2s linear infinite; /* Safari */
     animation: spin 2s linear infinite;
@@ -183,4 +184,163 @@ ul {
     padding: 5px 15px;
     width: fit-content;
     margin-bottom: 40px;
+}
+
+
+@media screen and (max-width: 600px) {
+  footer {
+    margin-top: auto;
+    text-align: center;
+    color: white;
+    font-weight: 600;
+    font-size: 4vw;
+  }
+   
+
+
+canvas {
+    width: 80vw;
+    height: 80vw;
+    text-align: center;
+    border:2px solid #206493;
+    border-radius: 8px;
+}
+
+.image-block {
+    display: block;
+    align-items: center;
+    text-align: center;
+    width: 80vw;
+    border-bottom: solid #206493 2px;
+    border-right: none;
+}
+
+.sub-container {
+    display: block;
+    margin-bottom: 30px;
+    justify-items: center;
+    /* width: 100vw; */
+}
+
+.iris-image {
+    height: 18px;
+    width: 18px;
+}
+
+.app-title {
+    font-weight: lighter;
+    font-size: 20px;
+    width: fit-content;
+    margin: 0 0 0 30px;
+}
+
+#fileNameDisplay {
+    color: #6f95ac;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 4vw;
+}
+
+form {
+    display: flex;
+    min-width: 80vw;
+    justify-content: space-between;
+    
+}
+
+.custom-file-upload, .diagnose-button
+ {
+    display: inline-block;
+    padding: 3px 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 11px;
+    text-align: center;
+    width: 100px;
+    border: solid 2px #206493;
+}
+.custom-file-upload {
+    margin: 10px 15px 30px 0;
+}
+
+.diagnose-button {
+    margin: 10px 0 30px 0;
+}
+
+.results {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 20px 0 20px 20px;
+    text-align: start;
+    width: 70vw;
+}
+.prediction-block {
+    width: 100vw;
+    margin-left: 0;
+}
+
+
+
+body {
+    margin: 0;
+    padding: 0;
+    
+}
+
+.loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #1c395b;
+    width: 25px;
+    height: 25px;
+    margin: auto;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    text-align: center;
+    }
+
+    .prediction {
+    font-size: 13px;
+    margin: 10px 20px;
+    }
+
+    .diagnosis-detail {
+    margin: 10px 20px;
+    font-size: 11px;
+    }
+
+    .diagnosis {
+    width: 90vw;
+    margin-bottom: 20px;
+    }
+
+    .dr-notes {
+    border-radius: 8px;
+    padding: 5px 15px;
+    width: fit-content;
+    margin-bottom: 20px;
+    font-size: 11px;
+}
+.disclaimer {
+    font-size: 11px;
+    width: 80vw;
+    margin-left: 10px;
+    padding-left: 10px;
+
+}
+
+.notes {
+    width: 100wv;
+}
+
+.disclaimer-options {
+    margin-left: 10px; 
+
+}
+
+
+
+
 }
