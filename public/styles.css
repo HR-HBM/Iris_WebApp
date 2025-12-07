@@ -192,12 +192,12 @@ ul {
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  margin-top: 75px;
   gap: 0.4rem;
-  width: 450px;
-  padding: 1.3rem;
-  min-height: 250px;
+  width: 400px;
+  height: fit-content;
+  padding: 25px;
   position: absolute;
-  top: 40%;
   left: 35%;
   background-color: white;
   border: 1px solid #ddd;
@@ -206,10 +206,17 @@ ul {
 
 }
 
+.message {
+    height: 150px;
+}
+
+.mb-3 {
+    text-align: left;
+}
+
 .modal .flex {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .modal input {
@@ -219,39 +226,60 @@ ul {
   font-size: 0.9em;
 }
 
-.modal p {
+.form-description {
   font-size: 0.9rem;
   color: #777;
   margin: 0.4rem 0 0.2rem;
 }
 
-/* button {
-  cursor: pointer;
-  border: none;
-  font-weight: 600;
-} */
+.btn-success {
 
-/* .btn {
-  display: inline-block;
-  padding: 0.8rem 1.4rem;
-  font-weight: 700;
-  background-color: black;
-  color: white;
-  border-radius: 5px;
-  text-align: center;
-  font-size: 1em;
-} */
+    border-radius: 8px;
+    background-color: #206493;
+    border-color: #206493;
 
-/* .btn-open {
-  position: absolute;
-  bottom: 150px;
-} */
+}
+
+
+.btn-success:hover {
+    background-color: white;
+    border-color: #206493;
+    color: #206493;
+
+}
+
+.btn-success:active {
+    background-color: white;
+    border-color: #206493;
+    color: #206493;
+
+}
+
+.btn-success:focus {
+    background-color: #206493;
+    border-color: #206493;
+    color: white;
+
+}
+
+
+.form-heading {
+    font-size: 18px;
+    font-weight: 600;
+}
 
 .btn-close {
-  transform: translate(10px, -20px);
-  padding: 0.5rem 0.7rem;
-  background: #eee;
-  border-radius: 50%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    text-align: center;  
+    background: #eee;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
 }
 
 

@@ -4,6 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Iris</title>
+    <link href="https://getbootstrap.com/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" type="image/x-icon" href="/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
@@ -32,30 +33,49 @@
                 <form action="/predict" method="POST" enctype="multipart/form-data" id="predictForm">
                     <label for="imageInput" class="custom-file-upload">Select Image</label>
                     <input type="file" id="imageInput" name="image" accept="image/*" required>
-                    <!-- modal -->
+                    
+                    <!-- type="submit" to proceed with image inference -->
+                    <!-- <button type="submit" class="diagnose-button btn btn-open">Diagnose</button> -->
+                    <button type="button" class="diagnose-button btn btn-open">Diagnose</button>
+
+                </form>
+            </div>
+
+            <!-- modal -->
                     <section class="modal hidden">
                         <div class="flex">
-                            <img src="user.png" width="50px" height="50px" alt="user" />
                             <button class="btn-close">⨉</button>
                         </div>
                         <div>
-                            <h3>Stay in touch</h3>
-                            <p>
-                            This is a dummy newsletter form so don't bother trying to test it. Not
-                            that I expect you to, anyways. :)
+                            <p class="form-heading">Contact the Developer</p> 
+                            <p class="form-description">
+                            This app was built for <b>academic</b> purposes only, and the API that powered this app has been suspended temporarily. <br> <br> Please reach out to the developer if you have any questions about this project.
                             </p>
                         </div>
 
-                        <input type="email" id="email" placeholder="brendaneich@js.com" />
-                        <button class="btn">Submit</button>
+                        <form method="post" action="/send">
+                        <div class="mb-3">
+                            <label for="name">Name:</label>
+                            <input type="text" name="name" class="form-control" placeholder="Your name" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="email">Email:</label>
+                            <input type="email" name="email" class="form-control" placeholder="Your email address" required />
+                        
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="message">Message:</label>
+                            <textarea name="message" class="form-control message" placeholder="Your message/inquiry" required></textarea>
+                            
+                        </div>
+                        <button type="submit" class="btn btn-success">Send Message</button>
+                    </form>
                                              
                     </section>
 
                     <div class="overlay hidden"></div>
                     
-                    <button type="submit" class="diagnose-button btn btn-open">Diagnose</button>
-                </form>
-            </div>
 
             <div class="prediction-block">
                 <h2 class="results">Results</h2>
