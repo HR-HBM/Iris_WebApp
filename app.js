@@ -44,51 +44,30 @@ const transporter = nodemailer.createTransport({
 
 // route for contact form
 app.post('/send', async (req, res) => {
-
     const { name, email, message } = req.body;
 
-    // try {
-    //     await resend.emails.send({
-    //         from: 'Iris <onboarding@resend.dev>',
-    //         to: process.env.EMAIL,
-    //         subject: 'New Inquiry for Iris', 
-    //         text: `${req.body.name} has a question about your project.\n \n Here are the details of this inquiry:\n
+    try {
+        const response = await axios.post(
+            'https://api.resend.com/emails',
+            {
+                from: 'Iris <onboarding@resend.dev>',
+                to: [process.env.EMAIL],  // Must be array, must be verified email
+                subject: `New Inquiry for Iris - From: ${name}`,
+                text: `${name} (${email}) has a question about your project.\n\nMessage:\n${message}`
+            },
+            {
+                headers: {
+                    'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
 
-    //         Name: ${req.body.name}
-    //         Email: ${req.body.email}
-    //         Message: 
-    //         ${req.body.message}`
-    //     });
-    //     res.render('response');
-    
-    // } catch (error) {
-    //     console.error('Email error:', error);
-    //     res.status(500).send('Failed to send email');
-    // }
-
-
-            
-
-
-			const mail_option = {
-                from: 'Iris <onboarding@resend.dev>',                
-                to: process.env.EMAIL, 
-                subject: 'New Inquiry for Iris', 
-                text: `${name} has a question about your project.\n \n Here are the details of this inquiry:\n
-
-            Name: ${name}
-            Email: ${email}
-            Message: 
-            ${message}`
-            };
-
-			try {
-        const info = await transporter.sendMail(mail_option);
-        console.log('✓ Email sent:', info.messageId);
+        console.log('✓ Email sent:', response.data);
         res.redirect('/success');
     } catch (error) {
-        console.error('✗ Email error:', error.message);
-        res.status(500).send('Failed to send email: ' + error.message);
+        console.error('✗ Email error:', error.response?.data || error.message);
+        res.status(500).send('Failed to send email: ' + (error.response?.data?.message || error.message));
     }
 });
 
