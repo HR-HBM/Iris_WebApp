@@ -23,8 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 dotenv.config();
-const devpass = process.env.PASS;
-const devemail = process.env.EMAIL;
+// const devpass = process.env.PASS;
+// const devemail = process.env.EMAIL;
 
 
 // route for contact form
@@ -43,16 +43,32 @@ app.post('/send',
 		}
 		else
 		{
-			const transporter = nodemailer.createTransport({
-				service : 'Gmail',
-				auth : {
-					user : devemail,
-					pass : devpass
-				}
-			});
+			// const transporter = nodemailer.createTransport({
+			// 	service : 'Gmail',
+			// 	auth : {
+			// 		user : devemail,
+			// 		pass : devpass
+			// 	}
+			// });
+
+
+            const transporter = nodemailer.createTransport({
+
+                host: 'smtp.gmail.com',
+                port: 587,
+                secure: false, // true for 465, false for other ports
+                auth: {
+                    user: process.env.EMAIL,
+                    pass: process.env.PASS
+                },
+                tls: {
+                    rejectUnauthorized: false // Add this if you get certificate errors
+                }
+            });
+
 
 			const mail_option = {
-                from: devemail,                
+                from: process.env.EMAIL,                
                 to: 'theengineersarchive@gmail.com', 
                 subject: 'New Inquiry for Iris', 
                 text: `${req.body.name} has a question about your project.\n \n Here are the details of this inquiry:\n
