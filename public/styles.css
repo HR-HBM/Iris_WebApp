@@ -192,13 +192,15 @@ ul {
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  margin-top: 75px;
+  margin-top: 0;
   gap: 0.4rem;
   width: 400px;
   height: fit-content;
-  padding: 25px;
-  position: absolute;
-  left: 35%;
+  padding: 10px 25px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 15px;
@@ -207,7 +209,7 @@ ul {
 }
 
 .message {
-    height: 150px;
+    height: 100px;
 }
 
 .mb-3 {
@@ -220,7 +222,7 @@ ul {
 }
 
 .modal input {
-  padding: 0.7rem 1rem;
+  /* padding: 0.7rem 1rem; */
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 0.9em;
@@ -229,7 +231,7 @@ ul {
 .form-description {
   font-size: 0.9rem;
   color: #777;
-  margin: 0.4rem 0 0.2rem;
+  /* margin: 0.4rem 0 0.2rem; */
 }
 
 .btn-success {
@@ -237,6 +239,7 @@ ul {
     border-radius: 8px;
     background-color: #206493;
     border-color: #206493;
+    margin-bottom: 15px;
 
 }
 
@@ -459,13 +462,15 @@ body {
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  margin-top: 75px;
+  margin-top: 0;
   gap: 0.4rem;
-  width: 350px;
+  width: 300px;
   height: fit-content;
-  padding: 25px;
-  position: absolute;
-  left: 10%;
+  padding: 10px 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 15px;
@@ -474,12 +479,13 @@ body {
 }
 
 .inquiry-form {
-    margin-top: 50px;
+    margin-top: 5px;
     display: block;
 }
 
 .message {
-    height: 150px;
+    height: 100px;
+    font-size: 0.7rem;
 }
 
 .mb-3 {
@@ -491,31 +497,39 @@ body {
     justify-content: flex-end;
 }
 
+label {
+    font-size: 0.8rem;
+}
+
 .modal input {
-  padding: 0.7rem 1rem;
+  /* padding: 0.7rem 1rem; */
   border: 1px solid #ddd;
   border-radius: 5px;
-  font-size: 0.9em;
+  font-size: 0.7em;
 }
 
 .form-description {
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   color: #777;
-  margin: 0.4rem 0 0.2rem;
+  /* margin: 0.4rem 0 0.2rem; */
   text-align: justify;
 }
 
 .form-control {
-    width: 300px;
+    width: 100%;
 }
 
 .btn-success {
 
-    border-radius: 8px;
+    border-radius: 5px;
     background-color: #206493;
     border-color: #206493;
     display: flex;
-    margin: 35px 0 0 80px;
+    margin: 35px 0 10px 55px;
+    height: fit-content;
+    font-size: 0.7rem;
+    width: 140px;
+    justify-content: center;
 
 }
 
@@ -543,7 +557,7 @@ body {
 
 
 .form-heading {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 600;
 }
 
@@ -557,8 +571,8 @@ body {
     text-align: center;  
     background: #eee;
     border-radius: 50%;
-    height: 15px;
-    width: 15px;
+    height: 10px;
+    width: 10px;
 }
 
 
