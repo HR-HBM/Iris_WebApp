@@ -4,6 +4,8 @@ const axios = require("axios");
 const path = require("path");
 const FormData = require("form-data"); 
 const dotenv = require("dotenv");
+const { Resend } = require('resend');
+
 
 const bodyParser = require('body-parser');
 const { check, validationResult } = require('express-validator');
@@ -11,6 +13,7 @@ const nodemailer = require('nodemailer');
 
 
 const app = express();
+// const resend = new Resend(process.env.RESEND_API_KEY);
 const upload = multer({ storage: multer.memoryStorage() });
 
 // Set EJS as view engine
@@ -27,69 +30,66 @@ dotenv.config();
 // const devemail = process.env.EMAIL;
 
 
-// route for contact form
-app.post('/send', 
-	[
-		check('name').notEmpty().withMessage('Name is required'),
-		check('email').isEmail().withMessage('Invalid Email Address'),
-		check('message').notEmpty().withMessage('Message is required')
-	], (req, res) => {
+const transporter = nodemailer.createTransport({
 
-		const errors = validationResult(req);
-
-		if(!errors.isEmpty())
-		{
-			res.render('index', { errors : errors.mapped() });
-		}
-		else
-		{
-			// const transporter = nodemailer.createTransport({
-			// 	service : 'Gmail',
-			// 	auth : {
-			// 		user : devemail,
-			// 		pass : devpass
-			// 	}
-			// });
-
-
-            const transporter = nodemailer.createTransport({
-
-                host: 'smtp.gmail.com',
-                port: 587,
-                secure: false, // true for 465, false for other ports
+                host: 'smtp.resend.com',
+                port: 465,
+                secure: true, // true for 465, false for other ports
                 auth: {
-                    user: process.env.EMAIL,
-                    pass: process.env.PASS
-                },
-                tls: {
-                    rejectUnauthorized: false // Add this if you get certificate errors
+                    user: 'resend',
+                    pass: process.env.RESEND_API_KEY
                 }
             });
 
 
-			const mail_option = {
-                from: process.env.EMAIL,                
-                to: 'theengineersarchive@gmail.com', 
-                subject: 'New Inquiry for Iris', 
-                text: `${req.body.name} has a question about your project.\n \n Here are the details of this inquiry:\n
+// route for contact form
+app.post('/send', async (req, res) => {
 
-            Name: ${req.body.name}
-            Email: ${req.body.email}
+    const { name, email, message } = req.body;
+
+    // try {
+    //     await resend.emails.send({
+    //         from: 'Iris <onboarding@resend.dev>',
+    //         to: process.env.EMAIL,
+    //         subject: 'New Inquiry for Iris', 
+    //         text: `${req.body.name} has a question about your project.\n \n Here are the details of this inquiry:\n
+
+    //         Name: ${req.body.name}
+    //         Email: ${req.body.email}
+    //         Message: 
+    //         ${req.body.message}`
+    //     });
+    //     res.render('response');
+    
+    // } catch (error) {
+    //     console.error('Email error:', error);
+    //     res.status(500).send('Failed to send email');
+    // }
+
+
+            
+
+
+			const mail_option = {
+                from: 'Iris <onboarding@resend.dev>',                
+                to: process.env.EMAIL, 
+                subject: 'New Inquiry for Iris', 
+                text: `${name} has a question about your project.\n \n Here are the details of this inquiry:\n
+
+            Name: ${name}
+            Email: ${email}
             Message: 
-            ${req.body.message}`
+            ${message}`
             };
 
-			transporter.sendMail(mail_option, (error, info) => {
-				if(error)
-				{
-					console.log(error);
-				}
-				else
-				{
-					res.redirect('/success');
-				}
-			});
-		}
+			try {
+        const info = await transporter.sendMail(mail_option);
+        console.log('✓ Email sent:', info.messageId);
+        res.redirect('/success');
+    } catch (error) {
+        console.error('✗ Email error:', error.message);
+        res.status(500).send('Failed to send email: ' + error.message);
+    }
 });
 
 app.get('/success', (req, res) => {
